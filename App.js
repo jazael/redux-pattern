@@ -1,18 +1,20 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-} from 'react-native';
-import Counter from './src/Counter';
+import { Provider, connect } from 'react-redux';
+import store from './src/data/AppStore';
+import Appview from './src/views/AppView';
+
+const mapStateToProps = state => ({
+  tasks: state.tasks,
+  taskForm: state.taskForm
+});
+
+const AppContainer = connect(mapStateToProps)(Appview);
 
 const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={{ flex: 1, alignContent: 'center' }}>
-        <Counter />
-      </SafeAreaView>
-    </>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
   );
 };
 
